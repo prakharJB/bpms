@@ -5,8 +5,9 @@ const dotenv = require('dotenv');
 const path = require('path');
 const cors = require('cors');
 const fs = require('fs');
-
 const bodyParser = require('body-parser');
+const client = require('./routes/clientController');
+const portfolio = require('./routes/portfolioController');
 
 dotenv.config();
 
@@ -24,7 +25,10 @@ async function databaseConnect() {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
-
+ 
+//Api controller
+app.use('/api/portfolio', portfolio);
+app.use('/api/client',client);
 
 //Global Error Handler
 app.use((error, req, res, next) => {
