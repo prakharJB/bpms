@@ -38,6 +38,10 @@ const UserSchema = new mongoose.Schema(
     lastActive: {
       type: Date,
     },
+    isVerified: {
+      type: Boolean,
+      default: false,
+    },
   },
   { timestamps: true }
 );

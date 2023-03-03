@@ -48,6 +48,7 @@ router.delete("/:id", async (req, res) => {
 
 router.get("/search", async (req, res) => {
   try {
+    console.log(req.query)
     const { keyword } = req.query;
     const result = await portfolioModel.find({
       $or: [
@@ -71,3 +72,11 @@ router.get("/search", async (req, res) => {
 });
 
 module.exports = router;
+
+// {
+//   "username":"username",
+//   "firstName":"firstName",
+//   "lastName":"lastName",
+//   "email":"jmbliss46@gmail.com",
+//   "password":"1998@Prakhar"
+// }

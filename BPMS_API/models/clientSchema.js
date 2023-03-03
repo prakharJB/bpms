@@ -2,6 +2,9 @@ const mongoose = require("mongoose");
 
 const ClientSchema = new mongoose.Schema(
     {
+        salutation:{
+            type:String
+        },
         name: {
             type: String
         },
@@ -14,7 +17,7 @@ const ClientSchema = new mongoose.Schema(
         country: {
             type: String
         },
-        number: {
+        phoneNumber: {
             type: String
         },
         project:{
@@ -33,6 +36,9 @@ const ClientSchema = new mongoose.Schema(
             type:String
         },
         language:{
+            type:String
+        },
+        email:{
             type:String
         }
 

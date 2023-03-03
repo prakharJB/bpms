@@ -10,6 +10,7 @@ const client = require('./routes/clientController');
 const portfolio = require('./routes/portfolioController');
 const user = require('./routes/userController');
 const auth = require('./routes/auth');
+const orgnization = require('./routes/orgnizationController');
 
 dotenv.config();
 
@@ -33,6 +34,7 @@ app.use('/api/portfolio', portfolio);
 app.use('/api/client',client);
 app.use('/api/users', user);
 app.use('/api/auth', auth);
+app.use('/api/orgnization',orgnization)
 
 //Global Error Handler
 app.use((error, req, res, next) => {
