@@ -8,6 +8,8 @@ const fs = require('fs');
 const bodyParser = require('body-parser');
 const client = require('./routes/clientController');
 const portfolio = require('./routes/portfolioController');
+const user = require('./routes/userController');
+const auth = require('./routes/auth');
 
 dotenv.config();
 
@@ -29,6 +31,8 @@ app.use(express.json());
 //Api controller
 app.use('/api/portfolio', portfolio);
 app.use('/api/client',client);
+app.use('/api/users', user);
+app.use('/api/auth', auth);
 
 //Global Error Handler
 app.use((error, req, res, next) => {
