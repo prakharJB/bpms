@@ -7,14 +7,16 @@ const Signup = () => {
     password: '',
     repassword: '',
   });
+  const [passwordError, setPasswordError] = useState();
   const signIn = (e) => {
     e.preventDefault();
 
     console.log(formValue);
 
     if (formValue.password !== formValue.repassword) {
-      alert('Password did not match!');
+      setPasswordError(true);
     }
+    setPasswordError(false);
   };
 
   const handleChange = (e) => {
@@ -100,6 +102,11 @@ const Signup = () => {
                               name='repassword'
                               onChange={handleChange}
                             />
+                            {passwordError === true ? (
+                              <p>Password did not match!</p>
+                            ) : (
+                              ''
+                            )}
 
                             <label className='form-label' for='form3Example4cd'>
                               Repeat your password
