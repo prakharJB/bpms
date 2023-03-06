@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import OtpInput from "react-otp-input";
 import axios from'axios';
 
 const Signup = () => {
@@ -10,6 +11,9 @@ const Signup = () => {
   });
   const [passwordError, setPasswordError] = useState();
   const [otp, setOtp] = useState(false);
+  const [code, setCode] = useState("");
+
+  const handleOtpChange = (code) => setCode(code);
 
   const signIn =async (e) => {
     e.preventDefault();
@@ -51,7 +55,29 @@ const Signup = () => {
                         onSubmit={(e) => signIn(e)}
                       >
                         {otp === true ? (
-                          <div>OTP</div>
+                          <div> <h1>Enter OTP</h1>
+                          <OtpInput
+                            value={code}
+                            onChange={handleOtpChange}
+                            numInputs={6}
+                            separator={<span style={{ width: "8px" }}></span>}
+                            isInputNum={true}
+                            shouldAutoFocus={true}
+                            inputStyle={{
+                              border: "1px solid transparent",
+                              borderRadius: "8px",
+                              width: "54px",
+                              height: "54px",
+                              fontSize: "12px",
+                              color: "#000",
+                              fontWeight: "400",
+                              caretColor: "blue"
+                            }}
+                            focusStyle={{
+                              border: "1px solid #CFD3DB",
+                              outline: "none"
+                            }}
+                          /></div>
                         ) : (
                           <>
                             <div className='d-flex flex-row align-items-center mb-4'>
