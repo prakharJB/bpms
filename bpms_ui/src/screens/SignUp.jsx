@@ -1,33 +1,32 @@
-import React, { useEffect, useState } from "react";
-import OtpInput from "react-otp-input";
-import axios from'axios';
+import React, { useEffect, useState } from 'react';
+import OtpInput from 'react-otp-input';
+import axios from 'axios';
 
 const Signup = () => {
   const [formValue, setFormValue] = useState({
-    name: "",
-    email: "",
-    password: "",
-    repassword: "",
+    name: '',
+    email: '',
+    password: '',
+    repassword: '',
   });
   const [passwordError, setPasswordError] = useState();
   const [otp, setOtp] = useState(false);
-  const [code, setCode] = useState("");
+  const [code, setCode] = useState('');
 
   const handleOtpChange = (code) => setCode(code);
 
-  const signIn =async (e) => {
+  const signIn = async (e) => {
     e.preventDefault();
 
     console.log(formValue);
 
     if (formValue.password !== formValue.repassword) {
       setPasswordError(true);
-    } else{
-
+    } else {
       setPasswordError(false);
       setOtp(true);
       const result = await axios.post(
-        (`http://localhost:8800/api/auth/register`),
+        `http://localhost:8800/api/auth/register`,
         formValue
       );
     }
@@ -38,48 +37,52 @@ const Signup = () => {
   };
   return (
     <div>
-      <section className="vh-100">
-        <div className="container h-100">
-          <div className="row d-flex justify-content-center align-items-center h-100">
-            <div className="col-lg-12 col-xl-11">
-              <div className="card text-black">
-                <div className="card-body p-md-5">
-                  <div className="row justify-content-center">
-                    <div className="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
-                      <p className="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">
+      <section className='vh-100'>
+        <div className='container h-100'>
+          <div className='row d-flex justify-content-center align-items-center h-100'>
+            <div className='col-lg-12 col-xl-11'>
+              <div className='card text-black'>
+                <div className='card-body p-md-5'>
+                  <div className='row justify-content-center'>
+                    <div className='col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1'>
+                      <p className='text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4'>
                         Sign up
                       </p>
 
-                      <form
-                        className="mx-1 mx-md-4"
-                        onSubmit={(e) => signIn(e)}
-                      >
-                        {otp === true ? (
-                          <div> <h1>Enter OTP</h1>
+                      {otp === true ? (
+                        <div>
+                          {' '}
+                          <h1>Enter OTP</h1>
                           <OtpInput
                             value={code}
                             onChange={handleOtpChange}
                             numInputs={6}
-                            separator={<span style={{ width: "8px" }}></span>}
+                            separator={<span style={{ width: '8px' }}></span>}
                             isInputNum={true}
                             shouldAutoFocus={true}
                             inputStyle={{
-                              border: "1px solid transparent",
-                              borderRadius: "8px",
-                              width: "54px",
-                              height: "54px",
-                              fontSize: "12px",
-                              color: "#000",
-                              fontWeight: "400",
-                              caretColor: "blue"
+                              border: '1px solid transparent',
+                              borderRadius: '8px',
+                              width: '54px',
+                              height: '54px',
+                              fontSize: '12px',
+                              color: '#000',
+                              fontWeight: '400',
+                              caretColor: 'blue',
                             }}
                             focusStyle={{
-                              border: "1px solid #CFD3DB",
-                              outline: "none"
+                              border: '1px solid #CFD3DB',
+                              outline: 'none',
                             }}
-                          /></div>
-                        ) : (
-                          <>
+                          />
+                          <button>Submit OTP</button>
+                        </div>
+                      ) : (
+                        <>
+                          <form
+                            className='mx-1 mx-md-4'
+                            onSubmit={(e) => signIn(e)}
+                          >
                             <div className='d-flex flex-row align-items-center mb-4'>
                               <i className='fas fa-user fa-lg me-3 fa-fw'></i>
                               <div className='form-outline flex-fill mb-0'>
@@ -185,24 +188,24 @@ const Signup = () => {
                                 <a href='#!'>Terms of service</a>
                               </label>
                             </div>
-                          </>
-                        )}
 
-                        <div className="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                          <button
-                            type="submit"
-                            className="btn btn-primary btn-lg"
-                          >
-                            Register
-                          </button>
-                        </div>
-                      </form>
+                            <div className='d-flex justify-content-center mx-4 mb-3 mb-lg-4'>
+                              <button
+                                type='submit'
+                                className='btn btn-primary btn-lg'
+                              >
+                                Register
+                              </button>
+                            </div>
+                          </form>
+                        </>
+                      )}
                     </div>
-                    <div className="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
+                    <div className='col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2'>
                       <img
-                        src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp"
-                        className="img-fluid"
-                        alt="Sample image"
+                        src='https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp'
+                        className='img-fluid'
+                        alt='Sample image'
                       />
                     </div>
                   </div>
