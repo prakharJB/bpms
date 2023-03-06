@@ -11,7 +11,7 @@ const jwt = require('jsonwebtoken');
 router.post('/login', async (req, res) => {
   try {
     //Find user
-    const user = await User.findOne({ username: req.body.username });
+    const user = await User.findOne({ name: req.body.name });
     !user && res.status(404).send('User not found.');
 
     // Check if password is valid
@@ -22,7 +22,7 @@ router.post('/login', async (req, res) => {
     !validPassword && res.status(400).json('Wrong password.');
 
     const token = jwt.sign(
-      { username: user.username },
+      { name: user.name },
       process.env.JWT_SECRET,
       { expiresIn: '48h' }
     );
@@ -36,20 +36,14 @@ router.post('/login', async (req, res) => {
 //Register User
 router.post('/register', async (req, res) => {
   try {
-    const { username, firstName, email, password } = req.body;
-    if (isEmpty(firstName) || isEmpty(email) || isEmpty(password))
+    const { name, email, password , terms} = req.body;
+    if (isEmpty(name) || isEmpty(email) || isEmpty(password))
       return res.status(400).send('Invalid Input');
 
     const existingEmail = await User.findOne({ email: email });
     if (existingEmail) {
       return res.status(409).send('Email already in use');
     }
-
-    const existingUsername = await User.findOne({ username: username });
-    if (existingUsername) {
-      return res.status(409).send('Username already in use');
-    }
-
     // Generate a new password
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(req.body.password, salt);
