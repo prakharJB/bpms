@@ -1,21 +1,29 @@
-
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
+import axios from'axios';
 
 const Signup = () => {
-
   const [formValue, setFormValue] = useState({
-    name: '',
-    email: '',
-    password: '',
-    repassword: '',
+    name: "",
+    email: "",
+    password: "",
+    repassword: "",
   });
-  const signIn = (e) => {
+  const [passwordError, setPasswordError] = useState();
+
+  const signIn = async (e) => {
     e.preventDefault();
 
     console.log(formValue);
 
     if (formValue.password !== formValue.repassword) {
-      alert('Password did not match!');
+      setPasswordError(true);
+    } else{
+
+      setPasswordError(false);
+      const result = await axios.post(
+        (`http://localhost:8800/api/auth/register`),
+        formValue
+      );
     }
   };
 
@@ -36,7 +44,10 @@ const Signup = () => {
                         Sign up
                       </p>
 
-                      <form className="mx-1 mx-md-4">
+                      <form
+                        className="mx-1 mx-md-4"
+                        onSubmit={(e) => signIn(e)}
+                      >
                         <div className="d-flex flex-row align-items-center mb-4">
                           <i className="fas fa-user fa-lg me-3 fa-fw"></i>
                           <div className="form-outline flex-fill mb-0">
@@ -44,6 +55,9 @@ const Signup = () => {
                               type="text"
                               id="form3Example1c"
                               className="form-control"
+                              required
+                              name="name"
+                              onChange={handleChange}
                             />
                             <label className="form-label" for="form3Example1c">
                               Your Name
@@ -58,6 +72,9 @@ const Signup = () => {
                               type="email"
                               id="form3Example3c"
                               className="form-control"
+                              required
+                              name="email"
+                              onChange={handleChange}
                             />
                             <label className="form-label" for="form3Example3c">
                               Your Email
@@ -72,6 +89,9 @@ const Signup = () => {
                               type="password"
                               id="form3Example4c"
                               className="form-control"
+                              required
+                              name="password"
+                              onChange={handleChange}
                             />
                             <label className="form-label" for="form3Example4c">
                               Password
@@ -86,9 +106,18 @@ const Signup = () => {
                               type="password"
                               id="form3Example4cd"
                               className="form-control"
+                              required
+                              name="repassword"
+                              onChange={handleChange}
                             />
+                            {passwordError === true ? (
+                              <p className="">Password did not match!</p>
+                            ) : (
+                              ""
+                            )}
+
                             <label className="form-label" for="form3Example4cd">
-                              Re-password
+                              Repeat your password
                             </label>
                           </div>
                         </div>
@@ -99,10 +128,14 @@ const Signup = () => {
                             type="checkbox"
                             value=""
                             id="form2Example3c"
+                            required
+                            name="terms"
+                            onChange={handleChange}
                           />
                           <label
                             className="form-check-label"
                             for="form2Example3"
+                            required
                           >
                             I agree all statements in{" "}
                             <a href="#!">Terms of service</a>
@@ -111,7 +144,7 @@ const Signup = () => {
 
                         <div className="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
                           <button
-                            type="button"
+                            type="submit"
                             className="btn btn-primary btn-lg"
                           >
                             Register
