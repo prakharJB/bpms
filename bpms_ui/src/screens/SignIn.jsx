@@ -1,8 +1,41 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import Header from "../component/Header";
 import Footer from "../component/Footer";
 
 const Login = () => {
+  const [formValue, setFormValue] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleChange = (e) => {
+    setFormValue({ ...formValue, [e.target.name]: e.target.value });
+  };
+  const navigate = useNavigate();
+  const LogIn = async (e) => {
+    e.preventDefault();
+
+    console.log(formValue);
+
+    const result = await axios.post(
+      `http://localhost:8800/api/auth/login`,
+      formValue,
+      {
+        validateStatus: () => true,
+      }
+    );
+    if (result && result.status === 200) {
+      // Update user isVerified
+      navigate("/dashboard");
+    } else if (result && result.status === 404) {
+      alert("User Not Found");
+    } else if (result && result.status === 400) {
+      alert("Wrong Password");
+    }
+  };
+
   return (
     <div>
       <section className="vh-100">
@@ -16,10 +49,7 @@ const Login = () => {
                       <p className="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">
                         Login
                       </p>
-                      <form
-                        className="mx-1 mx-md-4"
-                        //onSubmit={(e) => signIn(e)}
-                      >
+                      <form className="mx-1 mx-md-4" onSubmit={(e) => LogIn(e)}>
                         <div className="d-flex flex-row align-items-center mb-4">
                           <i className="fas fa-envelope fa-lg me-3 fa-fw"></i>
                           <div className="form-outline flex-fill mb-0">
@@ -29,7 +59,7 @@ const Login = () => {
                               className="form-control"
                               required
                               name="email"
-                          
+                              onChange={(e)=>handleChange(e)}
                             />
                             <label className="form-label" for="form3Example3c">
                               Your Email
@@ -46,6 +76,7 @@ const Login = () => {
                               className="form-control"
                               required
                               name="password"
+                              onChange={(e)=>handleChange(e)}
                             />
                             <label className="form-label" for="form3Example4c">
                               Password
