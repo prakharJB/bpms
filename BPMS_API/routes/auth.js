@@ -11,7 +11,7 @@ const jwt = require('jsonwebtoken');
 router.post('/login', async (req, res) => {
   try {
     //Find user
-    const user = await User.findOne({ name: req.body.name });
+    const user = await User.findOne({ email: req.body.email });
     !user && res.status(404).send('User not found.');
 
     // Check if password is valid
