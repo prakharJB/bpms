@@ -36,7 +36,7 @@ router.post('/login', async (req, res) => {
 //Register User
 router.post('/register', async (req, res) => {
   try {
-    const { name, email, password , terms} = req.body;
+    const { name, email, password } = req.body;
     if (isEmpty(name) || isEmpty(email) || isEmpty(password))
       return res.status(400).send('Invalid Input');
 
