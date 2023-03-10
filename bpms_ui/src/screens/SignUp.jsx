@@ -39,7 +39,7 @@ const Signup = () => {
         // Update user isVerified
         setInvalidCode('');
         alert('user verified');
-        navigate('/Login');
+        navigate('/login');
       } else if (resData && resData.status === 404) {
         alert('Invalid verification code');
         setInvalidCode('Invalid verification code');
