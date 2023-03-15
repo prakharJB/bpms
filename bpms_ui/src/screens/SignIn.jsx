@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,Link } from "react-router-dom";
 import Header from "../component/Header";
 import Footer from "../component/Footer";
 
@@ -28,6 +28,13 @@ const Login = () => {
     );
     if (result && result.status === 200) {
       // Update user isVerified
+      const user = {
+        username: result.data.user.name,
+        email: result.data.user.email
+    };
+    const token = result.data.token;
+    localStorage.setItem('user', JSON.stringify(user));
+    localStorage.setItem('jwt', token);
       navigate("/dashboard");
     } else if (result && result.status === 404) {
       alert("User Not Found");
@@ -89,10 +96,16 @@ const Login = () => {
                             type="submit"
                             className="btn btn-primary btn-lg"
                           >
-                            Login
+                            LOGIN
                           </button>
                         </div>
                       </form>
+                      <div>
+                            <p className="have-acc">
+                              Not have an account ?{" "}
+                              <Link to="/">Sign Up</Link>
+                            </p>
+                          </div>
                     </div>
                     <div className="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
                       <img

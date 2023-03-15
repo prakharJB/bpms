@@ -1,0 +1,10 @@
+.side-section{
+    float: left;
+    background-color: #fff;
+}
+.right-section{
+    float: right;
+}
+.sideBox{
+    padding: 5px
+}

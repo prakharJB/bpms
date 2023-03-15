@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import OtpInput from "react-otp-input";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const Signup = () => {
   const [formValue, setFormValue] = useState({
@@ -20,7 +20,6 @@ const Signup = () => {
   const navigate = useNavigate();
 
   const OtpSubmit = async (e) => {
-    debugger;
     e.preventDefault();
     try {
       const verificationData = {
@@ -38,7 +37,6 @@ const Signup = () => {
       if (resData && resData.status === 200) {
         // Update user isVerified
         setInvalidCode("");
-        alert("user verified");
         navigate("/login");
       } else if (resData && resData.status === 404) {
         alert("Invalid verification code");
@@ -60,11 +58,22 @@ const Signup = () => {
       setPasswordError(true);
     } else {
       setPasswordError(false);
-      setOtp(true)
+
       const result = await axios.post(
         `http://localhost:8800/api/auth/register`,
-        formValue
+        formValue,
+        {
+          validateStatus: () => true,
+        }
       );
+      if (result && result.status === 200) {
+        // Update user isVerified
+        setOtp(true);
+      } else if (result && result.status === 400) {
+        alert("Invalid Input");
+      } else if (result && result.status === 409) {
+        alert("Email already use");
+      }
     }
   };
 
@@ -193,7 +202,7 @@ const Signup = () => {
                                   onChange={handleChange}
                                 />
                                 {passwordError === true ? (
-                                  <p>Password did not match!</p>
+                                  <p className="text-danger">Password did not match!</p>
                                 ) : (
                                   ""
                                 )}
@@ -236,6 +245,12 @@ const Signup = () => {
                               </button>
                             </div>
                           </form>
+                          <div>
+                            <p className="have-acc">
+                              Already have an account ?{" "}
+                              <Link to="/login">Log In</Link>
+                            </p>
+                          </div>
                         </>
                       )}
                     </div>
