@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useNavigate,Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import Header from "../component/Header";
 import Footer from "../component/Footer";
 
@@ -17,10 +17,8 @@ const Login = () => {
   const LogIn = async (e) => {
     e.preventDefault();
 
-    console.log(formValue);
-
     const result = await axios.post(
-      `http://localhost:8800/api/auth/login`,
+      `${process.env.REACT_APP_BASE_URL}/api/auth/login`,
       formValue,
       {
         validateStatus: () => true,
@@ -30,11 +28,11 @@ const Login = () => {
       // Update user isVerified
       const user = {
         username: result.data.user.name,
-        email: result.data.user.email
-    };
-    const token = result.data.token;
-    localStorage.setItem('user', JSON.stringify(user));
-    localStorage.setItem('jwt', token);
+        email: result.data.user.email,
+      };
+      const token = result.data.token;
+      localStorage.setItem("user", JSON.stringify(user));
+      localStorage.setItem("jwt", token);
       navigate("/dashboard");
     } else if (result && result.status === 404) {
       alert("User Not Found");
@@ -66,7 +64,7 @@ const Login = () => {
                               className="form-control"
                               required
                               name="email"
-                              onChange={(e)=>handleChange(e)}
+                              onChange={(e) => handleChange(e)}
                             />
                             <label className="form-label" for="form3Example3c">
                               Your Email
@@ -83,7 +81,7 @@ const Login = () => {
                               className="form-control"
                               required
                               name="password"
-                              onChange={(e)=>handleChange(e)}
+                              onChange={(e) => handleChange(e)}
                             />
                             <label className="form-label" for="form3Example4c">
                               Password
@@ -101,11 +99,10 @@ const Login = () => {
                         </div>
                       </form>
                       <div>
-                            <p className="have-acc">
-                              Not have an account ?{" "}
-                              <Link to="/">Sign Up</Link>
-                            </p>
-                          </div>
+                        <p className="have-acc">
+                          Not have an account ? <Link to="/">Sign Up</Link>
+                        </p>
+                      </div>
                     </div>
                     <div className="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
                       <img
