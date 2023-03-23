@@ -36,6 +36,9 @@ app.use('/api/users', user);
 app.use('/api/auth', auth);
 app.use('/api/orgnization',orgnization)
 
+//connecting folder
+app.use(express.static('public'));
+
 //Global Error Handler
 app.use((error, req, res, next) => {
   if (!res.headersSent) {

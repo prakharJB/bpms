@@ -85,6 +85,7 @@ router.delete("/:id", async (req, res) => {
   try {
     const org = await Orgnization.findById(req.params.id);
     await org.deleteOne();
+    
   } catch (err) {
     res.status(500).json(err);
   }

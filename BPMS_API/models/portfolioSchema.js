@@ -5,9 +5,6 @@ const PortfolioSchema = new mongoose.Schema(
         title:{
             type:  String,
         },
-        summary: {
-            type: String
-        },
         feature: {
             type: String
         },
@@ -22,9 +19,6 @@ const PortfolioSchema = new mongoose.Schema(
         },
         client:{
             type: String
-        },
-        cms:{
-            type:String
         },
         domainName:{
             type:String

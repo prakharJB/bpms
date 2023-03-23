@@ -4,6 +4,8 @@ import Home from './screens/Dashboard';
 import SignUp from '../src/screens/SignUp';
 import Login from '../src/screens/SignIn';
 import Dashboard from '../src/screens/Dashboard';
+import Form from '../src/screens/Form';
+import UpdateForm from '../src/screens/UpdateForm';
 
 function App() {
   return (
@@ -13,6 +15,8 @@ function App() {
           <Route path='/' element={<SignUp />}></Route>
           <Route path='/login' element={<Login />}></Route>
           <Route path='/dashboard' element={<Dashboard />}></Route>
+          <Route path='/add' element={<Form />}></Route>
+          <Route path='/update' element={<UpdateForm />}></Route>
         </Routes>
       </Router>
     </div>
